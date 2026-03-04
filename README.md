@@ -1,4 +1,4 @@
-# AI Stock Forecast to PDF
+# AI Prediction Embed Custom App Testing 
 # Mike Komer - 03/2/26 -- AI Forecast and Print to PDF Stock Prediction Custom Application
 
 [![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
