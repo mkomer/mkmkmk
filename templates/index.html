@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Stock Forecast - PDF Report Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📈 AI Stock Forecast</h1>
+            <p class="subtitle">LSTM-Powered Stock Price Predictions & PDF Reports</p>
+        </header>
+
+        <main class="content">
+            <section class="forecast-section">
+                <div class="form-card">
+                    <h2>Generate Forecast</h2>
+                    
+                    <form id="forecastForm" class="form-group">
+                        <div class="input-group">
+                            <label for="ticker">Stock Ticker</label>
+                            <input 
+                                type="text" 
+                                id="ticker" 
+                                name="ticker" 
+                                placeholder="e.g., AAPL, TSLA, MSFT"
+                                maxlength="5"
+                                required
+                            >
+                            <small>Enter stock symbol (1-5 characters)</small>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="forecastDays">Forecast Period (days)</label>
+                            <div class="range-group">
+                                <input 
+                                    type="range" 
+                                    id="forecastDays" 
+                                    name="forecast_days" 
+                                    min="5" 
+                                    max="365" 
+                                    value="30"
+                                    class="slider"
+                                >
+                                <span id="daysDisplay" class="days-value">30 days</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <span class="btn-text">🚀 Generate Forecast</span>
+                            <span class="loading" style="display:none;">Processing...</span>
+                        </button>
+                    </form>
+                </div>
+
+                <div id="resultsCard" class="results-card" style="display: none;">
+                    <h2>Forecast Results</h2>
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <span class="label">Stock</span>
+                            <span class="value" id="resultTicker">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Current Price</span>
+                            <span class="value" id="resultCurrent">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Forecast Price</span>
+                            <span class="value forecast" id="resultForecast">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Expected Change</span>
+                            <span class="value" id="resultChange">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Min Price</span>
+                            <span class="value" id="resultMin">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Max Price</span>
+                            <span class="value" id="resultMax">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Volatility</span>
+                            <span class="value" id="resultVolatility">-</span>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button id="downloadBtn" class="btn btn-success">
+                            📥 Download PDF Report
+                        </button>
+                        <button id="newForecastBtn" class="btn btn-secondary">
+                            ↻ New Forecast
+                        </button>
+                    </div>
+
+                    <div class="generated-info">
+                        <small>Generated: <span id="generatedTime">-</span></small>
+                    </div>
+                </div>
+
+                <div id="errorCard" class="error-card" style="display: none;">
+                    <h3>⚠️ Error</h3>
+                    <p id="errorMessage">-</p>
+                    <button class="btn btn-secondary" onclick="resetForm()">Try Again</button>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <h2>How It Works</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-icon">📊</div>
+                        <h3>Data Fetching</h3>
+                        <p>Retrieves 2 years of historical stock data from Yahoo Finance</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">🧠</div>
+                        <h3>LSTM Model</h3>
+                        <p>3-layer LSTM neural network trained on historical price patterns</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">🔮</div>
+                        <h3>Predictions</h3>
+                        <p>Generates future price forecasts (5-365 days)</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">📄</div>
+                        <h3>PDF Report</h3>
+                        <p>Professional report with statistics, charts, and analysis</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="disclaimer-section">
+                <h3>⚠️ Important Disclaimer</h3>
+                <p>
+                    This tool is for educational and research purposes only. Stock market predictions are inherently uncertain 
+                    and based solely on historical price patterns. This forecast does NOT account for external events, market factors, 
+                    earnings reports, or other material information. 
+                </p>
+                <p>
+                    <strong>Never make investment decisions based solely on these predictions.</strong> Always consult with a 
+                    qualified financial advisor before making any investment decisions.
+                </p>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>
+                AI Stock Forecast to PDF | 
+                <a href="https://github.com/mkomer/AI-Stock-Forecast-to-PDF" target="_blank">GitHub Repository</a> |
+                Built with TensorFlow, LSTM, and Flask
+            </p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
